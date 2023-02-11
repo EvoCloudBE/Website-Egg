@@ -1,0 +1,43 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2023-02-11T20:47:06+01:00",
+    "name": "Website",
+    "author": "contact@evo-cloud.be",
+    "description": null,
+    "features": null,
+    "docker_images": {
+        "PHP 8.0": " ghcr.io\/sigma-production\/nginx-ptero:8.0",
+        "PHP 8.1": " ghcr.io\/sigma-production\/nginx-ptero:8.1"
+    },
+    "file_denylist": [],
+    "startup": ".\/System\/Start.sh",
+    "config": {
+        "files": "{\r\n    \"System\/Config\/Nginx\/conf.d\/default.conf\": {\r\n        \"parser\": \"file\",\r\n        \"find\": {\r\n            \"    listen null;\": \"    listen {{server.build.default.port}};\"\r\n        }\r\n    }\r\n}",
+        "startup": "{\r\n    \"done\": \"\",\r\n    \"userInteraction\": []\r\n}",
+        "logs": "{\r\n    \"custom\": false,\r\n    \"location\": \"System\/Logs\/Latest.log\"\r\n}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/ash\r\n\r\ncd \/mnt\/server\r\napk --update add git\r\n\r\ngit clone https:\/\/github.com\/EvoCloudBE\/Website-Egg .\/\r\n\r\nrm -f Website-Egg.json\r\nchmod +x \/mnt\/server\/System\/Start.sh",
+            "container": "alpine:latest",
+            "entrypoint": "ash"
+        }
+    },
+    "variables": [
+        {
+            "name": "COMPOSER MODULE",
+            "description": "",
+            "env_variable": "MODULE",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        }
+    ]
+}
