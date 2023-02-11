@@ -10,4 +10,5 @@ ENV HOME /home/container
 WORKDIR /home/container
 COPY ./System/EntryPoint.sh /EntryPoint.sh
 
+RUN adduser www-data
 CMD ["/bin/ash", "/EntryPoint.sh"]
