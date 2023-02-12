@@ -4,8 +4,8 @@ if [[ ! -z ${MODULE} ]]; then
 	composer require ${MODULE} --working-dir=/home/container/Root;
 fi;
 
-if [[ ! -z ${PATH} ]]; then
-	sed -i 's/root \/home\/container\/Root;/root \/home\/container\/Root\/'"${PATH}"';/' /mnt/server/System/Config/Nginx/conf.d/default.conf
+if [[ ! -z ${WEBSITE_PATH} ]]; then
+	sed -i 's/root \/home\/container\/Root;/root \/home\/container\/Root\/'"${WEBSITE_PATH}"';/' /home/container/System/Config/Nginx/conf.d/default.conf
 fi;
 
 echo "⟳ Starting PHP-FPM ..."
