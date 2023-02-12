@@ -4,14 +4,14 @@
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2023-02-12T00:14:26+01:00",
+    "exported_at": "2023-02-12T17:53:19+01:00",
     "name": "Website",
     "author": "contact@evo-cloud.be",
     "description": null,
     "features": null,
     "docker_images": {
-        "PHP 8.0": " ghcr.io\/sigma-production\/nginx-ptero:8.0",
-        "PHP 8.1": " ghcr.io\/sigma-production\/nginx-ptero:8.1"
+        "PHP 8.0": "ghcr.io\/sigma-production\/nginx-ptero:8.0",
+        "PHP 8.1": "ghcr.io\/sigma-production\/nginx-ptero:8.1"
     },
     "file_denylist": [],
     "startup": ".\/System\/Start.sh",
