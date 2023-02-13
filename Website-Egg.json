@@ -4,14 +4,13 @@
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2023-02-12T17:53:19+01:00",
-    "name": "Website",
+    "exported_at": "2023-02-13T19:06:23+01:00",
+    "name": "Nginx (B\u00eata)",
     "author": "contact@evo-cloud.be",
     "description": null,
     "features": null,
     "docker_images": {
-        "PHP 8.0": "ghcr.io\/sigma-production\/nginx-ptero:8.0",
-        "PHP 8.1": "ghcr.io\/sigma-production\/nginx-ptero:8.1"
+        "8.1": "ghcr.io\/sigma-production\/nginx-ptero:8.1"
     },
     "file_denylist": [],
     "startup": ".\/System\/Start.sh",
@@ -23,12 +22,42 @@
     },
     "scripts": {
         "installation": {
-            "script": "#!\/bin\/ash\r\n\r\ncd \/mnt\/server\r\n\r\nrm -r \/mnt\/server\/.git\r\nrm -r \/mnt\/server\/System\r\nrm -r \/mnt\/server\/Root\r\nrm Dockerfile\r\n\r\necho \"\u27f3 Installing Dependencies ...\"\r\napk --update add git zip curl\r\n\r\necho \"\u27f3 Cloning Files ...\"\r\ngit clone https:\/\/github.com\/EvoCloudBE\/Website-Egg .\/\r\n\r\necho \"\u27f3 Setting Up Permissions ...\"\r\nrm -f Website-Egg.json\r\nchmod +x \/mnt\/server\/System\/Start.sh\r\n\r\ncd \/mnt\/server\/Root\r\nif [ \"${AZURIOM}\" == \"false\" ] || [ \"${AZURIOM}\" == \"0\" ]; then\r\n    if [ \"${MINEWEB}\" == \"false\" ] || [ \"${MINEWEB}\" == \"0\" ]; then\r\n        if [ \"${WORDPRESS}\" == \"false\" ] || [ \"${WORDPRESS}\" == \"0\" ]; then\r\n            echo \"\u2713 Install Complete !\"\r\n            echo \"\u2713 Go to 5.135.82.162:(PORT) !\"\r\n        else\r\n            echo \"\u27f3 Removing Default Index ...\"\r\n            rm index.php\r\n            \r\n            echo \"\u27f3 Downloading Wordpress ...\"\r\n            wget https:\/\/wordpress.org\/latest.zip\r\n                    \r\n            echo \"\u27f3 Extracting Wordpress ...\"\r\n            unzip latest.zip\r\n            mv wordpress\/* .\/\r\n                    \r\n            echo \"\u27f3 Removing Residual Files ...\"\r\n            rm -r wordpress\/\r\n            rm latest.zip\r\n                \r\n            echo \"\u2713 Install Complete !\"\r\n            echo \"\u2713 Go to 5.135.82.162:(PORT) !\"\r\n        fi\r\n    else\r\n        echo \"\u27f3 Removing Default Index ...\"\r\n        rm index.php\r\n            \r\n        echo \"\u27f3 Downloading MineWeb ...\"\r\n        wget https:\/\/github.com\/MineWeb\/MineWebCMS\/archive\/master.zip\r\n                    \r\n        echo \"\u27f3 Extracting MineWeb ...\"\r\n        unzip master.zip\r\n        mv MineWebCMS-master\/* .\/\r\n                    \r\n        echo \"\u27f3 Removing Residual Files ...\"\r\n        rm -r MineWebCMS-master\/\r\n        rm master.zip\r\n                    \r\n        echo \"\u2713 Install Complete !\"\r\n        echo \"\u2713 Go to 5.135.82.162:(PORT) !\"\r\n    fi\r\nelse\r\n    echo \"\u27f3 Removing Default Index ...\"\r\n    rm index.php\r\n            \r\n    echo \"\u27f3 Downloading Azuriom ...\"\r\n    wget https:\/\/github.com\/Azuriom\/AzuriomInstaller\/releases\/latest\/download\/AzuriomInstaller.zip\r\n                    \r\n    echo \"\u27f3 Extracting Azuriom ...\"\r\n    unzip AzuriomInstaller.zip\r\n\r\n    echo \"\u27f3 Removing Residual Files ...\"\r\n    rm AzuriomInstaller.zip\r\n    \r\n    echo \"\u27f3 Setting Up Permission ...\"\r\n    chmod -R 755 \/mnt\/server\/Root\r\n    chown -R www-data:www-data \/mnt\/server\/Root\r\n    \r\n    echo \"\u27f3 Setting Up Nginx ...\"\r\n    sed -i 's\/root \\\/home\\\/container\\\/Root;\/root \\\/home\\\/container\\\/Root\\\/public;\/' \/mnt\/server\/System\/Config\/Nginx\/conf.d\/default.conf\r\n\r\n    echo \"\u2713 Install Complete !\"\r\n    echo \"\u2713 Go to 5.135.82.162:(PORT) !\"\r\nfi",
+            "script": "#!\/bin\/ash\r\n\r\ncd \/mnt\/server\r\n\r\nif [ -d \/mnt\/server\/System ]; then\r\n    rm -rf \/mnt\/server\/.git\r\n    rm -rf \/mnt\/server\/System\r\n    rm -rf \/mnt\/server\/Root\r\n    rm -f Dockerfile\r\n    rm -f Website-Egg.json\r\nfi\r\n\r\necho \"\u27f3 Installing Dependencies ...\"\r\napk --update add git zip curl\r\n\r\necho \"\u27f3 Cloning Files ...\"\r\ngit clone https:\/\/github.com\/EvoCloudBE\/Website-Egg .\/\r\n\r\ncd \/mnt\/server\/Root\r\nif [ \"${AZURIOM}\" == \"false\" ] || [ \"${AZURIOM}\" == \"0\" ]; then\r\n    if [ \"${WORDPRESS}\" == \"false\" ] || [ \"${WORDPRESS}\" == \"0\" ]; then\r\n        if [ \"${NAMELESS}\" == \"false\" ] || [ \"${NAMELESS}\" == \"0\" ]; then\r\n            echo \"\u2713 Install Complete !\"\r\n            echo \"\u2713 Go to 5.135.82.162:(PORT) !\"\r\n        else\r\n            echo \"\u27f3 Removing Default Index ...\"\r\n            rm index.php\r\n                \r\n            echo \"\u27f3 Downloading Nameless ...\"\r\n            wget https:\/\/github.com\/NamelessMC\/Nameless\/releases\/latest\/download\/nameless-deps-dist.zip\r\n                        \r\n            echo \"\u27f3 Extracting Nameless ...\"\r\n            unzip nameless-deps-dist.zip\r\n                        \r\n            echo \"\u27f3 Removing Residual Files ...\"\r\n            rm nameless-deps-dist.zip\r\n        fi\r\n    else\r\n        echo \"\u27f3 Removing Default Index ...\"\r\n        rm index.php\r\n            \r\n        echo \"\u27f3 Downloading Wordpress ...\"\r\n        wget https:\/\/wordpress.org\/latest.zip\r\n                    \r\n        echo \"\u27f3 Extracting Wordpress ...\"\r\n        unzip latest.zip\r\n        mv wordpress\/* .\/\r\n                    \r\n        echo \"\u27f3 Removing Residual Files ...\"\r\n        rm -r wordpress\/\r\n        rm latest.zip\r\n    fi\r\nelse\r\n    echo \"\u27f3 Removing Default Index ...\"\r\n    rm index.php\r\n            \r\n    echo \"\u27f3 Downloading Azuriom ...\"\r\n    wget https:\/\/github.com\/Azuriom\/AzuriomInstaller\/releases\/latest\/download\/AzuriomInstaller.zip\r\n                    \r\n    echo \"\u27f3 Extracting Azuriom ...\"\r\n    unzip AzuriomInstaller.zip\r\n\r\n    echo \"\u27f3 Removing Residual Files ...\"\r\n    rm AzuriomInstaller.zip\r\n    \r\n    echo \"\u27f3 Setting Up Permission ...\"\r\n    chmod -R 755 \/mnt\/server\/Root\r\n    chown -R www-data:www-data \/mnt\/server\/Root\r\n    \r\n    echo \"\u27f3 Setting Up Nginx ...\"\r\n    sed -i 's\/root \\\/home\\\/container\\\/Root;\/root \\\/home\\\/container\\\/Root\\\/public;\/' \/mnt\/server\/System\/Config\/Nginx\/conf.d\/default.conf\r\nfi\r\n\r\necho \"\u27f3 Setting Up Permissions ...\"\r\nchmod +x \/mnt\/server\/System\/Start.sh\r\n\r\necho \"\u2713 Install Complete !\"\r\necho \"\u2713 Go to 5.135.82.162:(PORT) !\"",
             "container": "alpine:latest",
             "entrypoint": "ash"
         }
     },
     "variables": [
+        {
+            "name": "AZURIOM (NOT WORKING)",
+            "description": "Type : Game CMS",
+            "env_variable": "AZURIOM",
+            "default_value": "0",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|boolean",
+            "field_type": "text"
+        },
+        {
+            "name": "WORDPRESS",
+            "description": "Type : CMS",
+            "env_variable": "WORDPRESS",
+            "default_value": "0",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|boolean",
+            "field_type": "text"
+        },
+        {
+            "name": "NAMELESS",
+            "description": "Type : Minecraft CMS",
+            "env_variable": "NAMELESS",
+            "default_value": "0",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|boolean",
+            "field_type": "text"
+        },
         {
             "name": "COMPOSER MODULE",
             "description": "",
@@ -40,33 +69,13 @@
             "field_type": "text"
         },
         {
-            "name": "AZURIOM",
+            "name": "WEBSITE PATH",
             "description": "",
-            "env_variable": "AZURIOM",
-            "default_value": "0",
+            "env_variable": "WEBSITE_PATH",
+            "default_value": "",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "required|boolean",
-            "field_type": "text"
-        },
-        {
-            "name": "MINEWEB",
-            "description": "",
-            "env_variable": "MINEWEB",
-            "default_value": "0",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": "required|boolean",
-            "field_type": "text"
-        },
-        {
-            "name": "WORDPRESS",
-            "description": "",
-            "env_variable": "WORDPRESS",
-            "default_value": "0",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": "required|boolean",
+            "rules": "nullable|string",
             "field_type": "text"
         }
     ]
